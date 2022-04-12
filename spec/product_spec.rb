@@ -24,10 +24,10 @@ RSpec.describe Product, type: :model do
       )
       @product.save
       expect(@product).to be_invalid
-      expect(@product.errors.full_messages).to include("Name cannot be empty")
+      expect(@product.errors.full_messages).to include("Name can't be blank")
     end
 
-    it 'validates :quantity, presence: true' do
+    it 'validates :price, presence: true' do
       @category = Category.new(name: "Cars")
       @product = Product.new(
         name: "Ford Ram 150",
@@ -37,7 +37,20 @@ RSpec.describe Product, type: :model do
       )
       @product.save
       expect(@product).to be_invalid
-      expect(@product.errors.full_messages).to include("Price cannot be empty")
+      expect(@product.errors.full_messages).to include("Price can't be blank")
+    end
+
+    it 'validates :quantity, presence: true' do
+      @category = Category.new(name: "Balls")
+      @product = Product.new(
+        name: "Pingpong Ball",
+        price: 3,
+        quantity: nil,
+        category: @category
+      )
+      @product.save
+      expect(@product).to be_invalid
+      expect(@product.errors.full_messages).to include("Quantity can't be blank")
     end
 
   end
