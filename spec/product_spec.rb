@@ -53,6 +53,19 @@ RSpec.describe Product, type: :model do
       expect(@product.errors.full_messages).to include("Quantity can't be blank")
     end
 
+    it 'validates :category, presence: true' do
+      @category = Category.new(name: "Cars")
+      @product = Product.new(
+        name: "Toyota",
+        price: 69000,
+        quantity: 23,
+        category: nil
+      )
+      @product.save
+      expect(@product).to be_invalid
+      expect(@product.errors.full_messages).to include("Category can't be blank")
+    end
+
   end
 end 
 
