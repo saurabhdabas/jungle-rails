@@ -27,6 +27,19 @@ RSpec.describe Product, type: :model do
       expect(@product.errors.full_messages).to include("Name cannot be empty")
     end
 
+    it 'validates :quantity, presence: true' do
+      @category = Category.new(name: "Cars")
+      @product = Product.new(
+        name: "Ford Ram 150",
+        price: nil,
+        quantity: 7,
+        category: @category
+      )
+      @product.save
+      expect(@product).to be_invalid
+      expect(@product.errors.full_messages).to include("Price cannot be empty")
+    end
+
   end
 end 
 
